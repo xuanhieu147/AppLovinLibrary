@@ -1,0 +1,3 @@
+rootProject.name = "AppLovinSourceUtils"
+include ':app'
+include ':applovinlib'
