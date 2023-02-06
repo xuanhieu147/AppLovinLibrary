@@ -2,7 +2,6 @@ package com.tokis.tokiapp
 
 import android.app.Activity
 import android.content.Context
-import android.graphics.Color
 import android.net.ConnectivityManager
 import android.util.Log
 import android.view.View
@@ -21,10 +20,8 @@ import com.applovin.mediation.nativeAds.MaxNativeAdListener
 import com.applovin.mediation.nativeAds.MaxNativeAdLoader
 import com.applovin.mediation.nativeAds.MaxNativeAdView
 import com.applovin.sdk.AppLovinSdk
-import com.applovin.sdk.AppLovinSdkConfiguration
 import com.applovin.sdk.AppLovinSdkUtils
 import com.facebook.shimmer.ShimmerFrameLayout
-import com.tokis.tokiapp.utils.SweetAlert.SweetAlertDialog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -245,7 +242,7 @@ object ApplovinUtil : LifecycleObserver {
         }
 
         val dialog = DialogLoading()
-        dialog.setCancelable(false)
+        dialog.isCancelable = false
         dialog.show(activity.supportFragmentManager, "TAG")
 
         interstitialAd = MaxInterstitialAd(idAd, activity)
@@ -387,17 +384,16 @@ object ApplovinUtil : LifecycleObserver {
         if (interstitialAd.isReady()) {
             activity.lifecycleScope.launch {
                 if (dialogShowTime > 0) {
-                    val dialog = DialogLoading()
-                    dialog.setCancelable(false)
-                    dialog.show(activity.supportFragmentManager, "TAG")
-                    activity.lifecycle.addObserver(DialogHelperActivityLifeCycle(dialog))
+                    val dialog1 = DialogLoading()
+                    dialog1.isCancelable = false
+                    activity.lifecycle.addObserver(DialogHelperActivityLifeCycle(dialog1))
                     if (!activity.isFinishing) {
-                        dialog.dialog?.show()
+                        dialog1.show(activity.supportFragmentManager, "TAG")
                     }
                     delay(dialogShowTime)
-                    dialog.dialog?.let {
+                    dialog1.dialog?.let {
                         if (activity.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED) && it.isShowing()) {
-                            it.dismiss()
+                            dialog1.dismiss()
                         }
                     }
                 }
@@ -413,7 +409,7 @@ object ApplovinUtil : LifecycleObserver {
                 activity.lifecycleScope.launch(Dispatchers.Main) {
                     activity.lifecycle.addObserver(DialogHelperActivityLifeCycle(dialog))
                     if (!activity.isFinishing) {
-                        dialog.dialog?.show()
+                        dialog.show(activity.supportFragmentManager, "TAG")
                     }
                 }
             }

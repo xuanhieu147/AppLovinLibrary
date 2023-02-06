@@ -139,7 +139,7 @@ class MainActivity : AppCompatActivity() {
             })
         }
         btnLoadAndShow.setOnClickListener {
-            ApplovinUtil.loadAndShowInterstitialsWithDialogCheckTime(this,"46f6535dcdaa4adf",1500,object : InterstititialCallback {
+            ApplovinUtil.loadAndShowInterstitialsWithDialogCheckTime(this,"46f6535dcdaa4adf",0,object : InterstititialCallback {
                 override fun onInterstitialReady() {
 
                 }
