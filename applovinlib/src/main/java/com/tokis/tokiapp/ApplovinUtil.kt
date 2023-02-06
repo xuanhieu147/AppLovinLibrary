@@ -243,7 +243,7 @@ object ApplovinUtil : LifecycleObserver {
 
         val dialog = DialogLoading()
         dialog.isCancelable = false
-        dialog.show(activity.supportFragmentManager, "TAG")
+//        dialog.show(activity.supportFragmentManager, "TAG")
 
         interstitialAd = MaxInterstitialAd(idAd, activity)
         interstitialAd.loadAd()
